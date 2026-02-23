@@ -58,6 +58,6 @@
     <h2>${errorTitle}</h2>
     <p class="msg">${errorMessage}</p>
     <a href="${pageContext.request.contextPath}/home" class="btn">Return to Secure Dashboard</a>
-
+</div>
 </body>
 </html>

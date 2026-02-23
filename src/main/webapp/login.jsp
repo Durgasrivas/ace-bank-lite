@@ -1,18 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%
-    // Keeping the cookie logic but making it accessible to EL
-    String savedAccount = "";
-    Cookie[] cookies = request.getCookies();
-    if (cookies != null) {
-        for (Cookie c : cookies) {
-            if ("rememberedAccount".equals(c.getName())) {
-                savedAccount = c.getValue();
-                pageContext.setAttribute("savedAccount", savedAccount);
-            }
-        }
-    }
-%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +13,7 @@
 <div class="auth-wrapper fade-in-up">
 
     <header>
-        <div >
+        <div>
             <h1>Ace<span>Bank</span></h1>
         </div>
 
