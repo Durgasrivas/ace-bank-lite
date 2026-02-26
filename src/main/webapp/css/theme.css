@@ -1,0 +1,93 @@
+/* ============================= */
+/* THEME — Project Design Tokens */
+/* ============================= */
+
+/* Google Font (single source of truth) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* ---- Brand Colors ---- */
+    --color-primary: #00c6ff;
+    --color-primary-dark: #0072ff;
+    --color-accent: #7b2ff7;
+    --color-accent-light: #b57aff;
+    --color-success: #00ffa3;
+    --color-danger: #ff4d6a;
+    --color-warning: #ffb347;
+
+    /* ---- Text Colors ---- */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: rgba(255, 255, 255, 0.7);
+    --color-text-muted: rgba(255, 255, 255, 0.45);
+
+    /* ---- Background Palette ---- */
+    --color-bg-dark: #060d16;
+    --color-bg-mid: #0a1628;
+    --color-bg-light: #0f2027;
+    --color-bg-deepdark: #040a10;
+    --color-bg-navy: #0a1628;
+    --color-card-bg: rgba(255, 255, 255, 0.06);
+    --color-card-border: rgba(255, 255, 255, 0.08);
+    --color-card-hover: rgba(255, 255, 255, 0.1);
+
+    /* ---- Gradients ---- */
+    --gradient-brand: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    --gradient-bg: linear-gradient(135deg, #060d16, #0a1628, #0f2027);
+    --gradient-text: linear-gradient(135deg, var(--color-primary), var(--color-accent), var(--color-success));
+    --gradient-card: linear-gradient(135deg, #0a1628, #0f2027, #162a3a);
+
+    /* ---- Typography ---- */
+    --font-primary: 'Poppins', sans-serif;
+    --font-size-xs: 12px;
+    --font-size-sm: 13px;
+    --font-size-base: 14px;
+    --font-size-md: 15px;
+    --font-size-lg: 17px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 28px;
+    --font-size-3xl: 36px;
+    --font-size-4xl: 40px;
+    --font-size-hero: 56px;
+
+    /* ---- Spacing ---- */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    --spacing-3xl: 60px;
+
+    /* ---- Border Radius ---- */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --radius-pill: 50px;
+
+    /* ---- Shadows ---- */
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.6);
+    --shadow-glow-primary: 0 8px 28px rgba(0, 198, 255, 0.35);
+    --shadow-glow-lg: 0 14px 40px rgba(0, 198, 255, 0.4);
+
+    /* ---- Glass Effect ---- */
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-blur: blur(18px);
+
+    /* ---- Transitions ---- */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-smooth: 0.35s ease;
+    --transition-slow: 0.5s ease;
+
+    /* ---- Opacity ---- */
+    --opacity-muted: 0.5;
+    --opacity-soft: 0.6;
+    --opacity-medium: 0.7;
+    --opacity-strong: 0.85;
+}

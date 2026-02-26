@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="100%" style="stop-color:#B8860B"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg)" stroke="url(#gold)" stroke-width="2"/>
+  <!-- Shield shape -->
+  <path d="M32 10 L48 18 L48 34 Q48 48 32 54 Q16 48 16 34 L16 18 Z" fill="url(#gold)" opacity="0.9"/>
+  <!-- Shield shine -->
+  <path d="M32 10 L48 18 L48 26 Q32 30 16 26 L16 18 Z" fill="url(#shine)"/>
+  <!-- Letter A -->
+  <text x="32" y="40" text-anchor="middle" font-family="Georgia, serif" font-size="26" font-weight="bold" fill="#1a1a2e">A</text>
+</svg>
