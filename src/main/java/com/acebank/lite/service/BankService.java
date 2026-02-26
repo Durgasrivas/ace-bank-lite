@@ -31,5 +31,9 @@ public interface BankService {
 
     public boolean recoverAccount(String email);
 
-    public boolean applyForLoan(String firstName, String email, String loanType);
+    public boolean applyForLoan(String firstName, String email, String loanType, double loanAmount);
+
+    public boolean sendForgotPasswordOtp(String email);
+
+    public boolean verifyOtpAndResetPassword(String email, String otp, String newPassword);
 }

@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class BankServiceImpl implements BankService {
 
     private final BankUserDao userDao = new BankUserDaoImpl(); // Or get via Singleton
-    private static final BigDecimal DAILY_LIMIT = new BigDecimal("500.00");
+    private static final BigDecimal DAILY_LIMIT = new BigDecimal("50000.00");
 
 
     @Override
@@ -240,27 +240,114 @@ public class BankServiceImpl implements BankService {
 
 
     @Override
-    public boolean applyForLoan(String firstName, String email, String loanType) {
+    public boolean applyForLoan(String firstName, String email, String loanType, double loanAmount) {
         String subject = "Loan Application Received - AceBank";
         String body = String.format(
                 """
                         Dear %s,
                         
                         Thank you for applying for a %s loan with AceBank.
+                        Requested Amount: ₹%.2f
                         We have received your request and our team will review it shortly.
                         
                         We will be in touch with you as soon as a decision is made.
                         
                         Sincerely,
                         The AceBank Team""",
-                firstName, loanType
+                firstName, loanType, loanAmount
         );
 
         try {
+            // Save loan request to database
+            userDao.saveLoanRequest(firstName, email, loanType, loanAmount);
+            log.info("Loan request saved to DB for " + email + " - Type: " + loanType + " - Amount: " + loanAmount);
+
+            // Send confirmation email
             MailUtil.sendMail(email, subject, body);
             return true;
         } catch (Exception e) {
-            log.severe("Failed to send loan confirmation email: " + e.getMessage());
+            log.severe("Failed to process loan application: " + e.getMessage());
+            return false;
+        }
+    }
+
+
+    @Override
+    public boolean sendForgotPasswordOtp(String email) {
+        try {
+            // 1. Check if user exists
+            var userIdOpt = userDao.getUserIdByEmail(email);
+            if (userIdOpt.isEmpty()) {
+                log.warning("Forgot password request for non-existent email: " + email);
+                return false;
+            }
+
+            // 2. Generate 6-digit OTP
+            String otp = String.valueOf(ThreadLocalRandom.current().nextInt(100000, 999999));
+
+            // 3. Clean old OTPs and save new one
+            userDao.deleteOtp(email);
+            userDao.saveOtp(email, otp);
+
+            // 4. Send OTP via email
+            String subject = "AceBank - Password Reset OTP";
+            String body = String.format(
+                    """
+                            Dear User,
+                            
+                            Your One-Time Password (OTP) for password reset is:
+                            
+                                %s
+                            
+                            This OTP is valid for 15 minutes. Do not share it with anyone.
+                            
+                            If you did not request this, please ignore this email.
+                            
+                            Best regards,
+                            AceBank Security Team""",
+                    otp
+            );
+
+            MailUtil.sendMail(email, subject, body);
+            log.info("OTP sent successfully to " + email);
+            return true;
+
+        } catch (Exception e) {
+            log.severe("Failed to send OTP: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean verifyOtpAndResetPassword(String email, String otp, String newPassword) {
+        try {
+            // 1. Verify OTP
+            boolean isValid = userDao.verifyOtp(email, otp);
+            if (!isValid) {
+                log.warning("Invalid or expired OTP for email: " + email);
+                return false;
+            }
+
+            // 2. Get user ID
+            var userIdOpt = userDao.getUserIdByEmail(email);
+            if (userIdOpt.isEmpty()) {
+                return false;
+            }
+
+            // 3. Hash new password and update
+            String hashedPassword = PasswordUtil.hashPassword(newPassword);
+            boolean updated = userDao.resetPasswordByUserId(userIdOpt.get(), hashedPassword);
+
+            // 4. Clean up OTPs
+            if (updated) {
+                userDao.deleteOtp(email);
+                log.info("Password reset successfully for " + email);
+            }
+
+            return updated;
+
+        } catch (Exception e) {
+            log.severe("Failed to reset password: " + e.getMessage());
             return false;
         }
     }

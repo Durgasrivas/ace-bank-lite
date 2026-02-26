@@ -324,4 +324,80 @@ public class BankUserDaoImpl implements BankUserDao {
     }
 
 
+    @Override
+    public boolean saveLoanRequest(String userName, String email, String loanType, double loanAmount) throws SQLException {
+        String sql = QueryLoader.get("loan.insert");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userName);
+            pstmt.setString(2, email);
+            pstmt.setString(3, loanType);
+            pstmt.setDouble(4, loanAmount);
+            return pstmt.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public boolean saveOtp(String email, String otp) throws SQLException {
+        String sql = QueryLoader.get("otp.save");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            pstmt.setString(2, otp);
+            // OTP expires in 15 minutes
+            pstmt.setTimestamp(3, Timestamp.valueOf(
+                    java.time.LocalDateTime.now().plusMinutes(15)));
+            return pstmt.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public boolean verifyOtp(String email, String otp) throws SQLException {
+        String sql = QueryLoader.get("otp.verify");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            pstmt.setString(2, otp);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    @Override
+    public void deleteOtp(String email) throws SQLException {
+        String sql = QueryLoader.get("otp.delete");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            pstmt.executeUpdate();
+        }
+    }
+
+    @Override
+    public Optional<Integer> getUserIdByEmail(String email) throws SQLException {
+        String sql = QueryLoader.get("user_recovery.get_id_by_email");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(rs.getInt("USER_ID"));
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean resetPasswordByUserId(int userId, String newPasswordHash) throws SQLException {
+        String sql = QueryLoader.get("user_recovery.reset_password");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newPasswordHash);
+            pstmt.setInt(2, userId);
+            return pstmt.executeUpdate() > 0;
+        }
+    }
+
 }
