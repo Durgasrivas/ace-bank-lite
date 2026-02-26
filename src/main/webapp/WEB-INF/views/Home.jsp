@@ -836,10 +836,7 @@
                     </div>
 
                     <div class="header-right">
-                        <div class="user-badge">
-                            <span class="acc-no"><i class="ri-user-line"></i> ${sessionScope.accountNumber}</span>
-                            <span class="user-name">${sessionScope.firstName} 👋</span>
-                        </div>
+
                         <a href="Logout" class="logout-btn" title="Logout">
                             <i class="ri-logout-box-r-line"></i>
                         </a>
@@ -852,6 +849,19 @@
                     <!-- DASHBOARD CARDS -->
                     <div class="dash-content" style="padding:0;">
 
+                        <div
+                            style="display:inline-flex; align-items:center; background:linear-gradient(135deg, #0a1628, #0f2027, #162a3a); border: 1px solid rgba(0, 198, 255, 0.18); border-radius:30px; padding:12px 24px; box-shadow:0 15px 35px rgba(0,0,0,0.4), 0 0 20px rgba(0,198,255,0.06); margin-bottom: 24px;">
+                            <span
+                                style="font-size:16px; font-weight:600; color:#00c6ff; display:flex; align-items:center; gap:8px;">
+                                <i class="ri-user-line" style="font-size:18px;"></i> ${sessionScope.accountNumber}
+                            </span>
+                            <div style="width:1px; height:20px; background:rgba(255,255,255,0.15); margin:0 16px;">
+                            </div>
+                            <span style="font-size:18px; font-weight:700; color:white;">
+                                ${sessionScope.firstName} <i class="wave-icon"
+                                    style="font-size:20px; margin-left:4px;">👋</i>
+                            </span>
+                        </div>
 
                         <div class="card-grid">
 

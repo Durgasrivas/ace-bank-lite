@@ -17,91 +17,32 @@
         <style>
             /* ---- About Page Animated BG ---- */
             .about-page {
-                background: linear-gradient(135deg, #0f2027, #203a43, #2c5364) !important;
+                background: linear-gradient(135deg, #060d16, #0a1628, #0f2027) !important;
+                background-size: 400% 400% !important;
+                animation: abtGrad 12s ease infinite !important;
                 min-height: 100vh;
                 position: relative;
                 overflow-x: hidden;
             }
 
+            @keyframes abtGrad {
+                0% {
+                    background-position: 0% 50%;
+                }
+
+                50% {
+                    background-position: 100% 50%;
+                }
+
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
             /* ---- Floating Orbs ---- */
             .abt-orb {
-                position: fixed;
-                border-radius: 50%;
-                filter: blur(100px);
-                opacity: 0.3;
-                z-index: 0;
-                pointer-events: none;
-            }
-
-            .abt-orb-1 {
-                width: 500px;
-                height: 500px;
-                background: radial-gradient(circle, #7b2ff7, transparent 70%);
-                top: -120px;
-                left: -80px;
-                animation: abtOrb1 14s ease-in-out infinite;
-            }
-
-            .abt-orb-2 {
-                width: 400px;
-                height: 400px;
-                background: radial-gradient(circle, #00c6ff, transparent 70%);
-                bottom: 10%;
-                right: -100px;
-                animation: abtOrb2 18s ease-in-out infinite;
-            }
-
-            .abt-orb-3 {
-                width: 300px;
-                height: 300px;
-                background: radial-gradient(circle, #00ffa3, transparent 70%);
-                top: 50%;
-                left: 15%;
-                animation: abtOrb3 20s ease-in-out infinite;
-            }
-
-            @keyframes abtOrb1 {
-
-                0%,
-                100% {
-                    transform: translate(0, 0) scale(1);
-                }
-
-                50% {
-                    transform: translate(50px, 70px) scale(1.08);
-                }
-            }
-
-            @keyframes abtOrb2 {
-
-                0%,
-                100% {
-                    transform: translate(0, 0) scale(1);
-                }
-
-                50% {
-                    transform: translate(-60px, -50px) scale(1.1);
-                }
-            }
-
-            @keyframes abtOrb3 {
-
-                0%,
-                100% {
-                    transform: translate(0, 0) scale(1);
-                }
-
-                50% {
-                    transform: translate(40px, 60px) scale(1.05);
-                }
-            }
-
-            /* ---- Particle Canvas ---- */
-            #abt-particles {
-                position: fixed;
-                inset: 0;
-                z-index: 0;
-                pointer-events: none;
+                display: none;
+                /* Removed custom orbs to use index standard orbs */
             }
 
             /* ---- About Hero ---- */
@@ -380,10 +321,24 @@
     <body class="about-page">
 
         <!-- Animated Background Layers -->
-        <canvas id="abt-particles"></canvas>
-        <div class="abt-orb abt-orb-1"></div>
-        <div class="abt-orb abt-orb-2"></div>
-        <div class="abt-orb abt-orb-3"></div>
+        <canvas id="idx-particles"></canvas>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+
+        <!-- Floating Currency Symbols (Same as Index) -->
+        <div
+            style="position:fixed;font-size:18px;font-weight:800;opacity:0.15;z-index:0;top:10%;left:8%;color:#00c6ff;animation:fc 6s ease-in-out infinite;">
+            ₹</div>
+        <div
+            style="position:fixed;font-size:18px;font-weight:800;opacity:0.15;z-index:0;top:20%;right:12%;color:#00ffa3;animation:fc 7s 1s ease-in-out infinite;">
+            $</div>
+        <div
+            style="position:fixed;font-size:18px;font-weight:800;opacity:0.15;z-index:0;bottom:25%;left:15%;color:#7b2ff7;animation:fc 8s 2s ease-in-out infinite;">
+            €</div>
+        <div
+            style="position:fixed;font-size:18px;font-weight:800;opacity:0.15;z-index:0;bottom:15%;right:8%;color:#ffb347;animation:fc 5s 0.5s ease-in-out infinite;">
+            £</div>
 
         <!-- ====== HEADER / NAVBAR ====== -->
         <header class="idx-header">
@@ -392,8 +347,6 @@
                     Ace<span>Bank</span>
                 </a>
                 <nav class="idx-nav">
-                    <a href="${pageContext.request.contextPath}/index.jsp#features"><i class="ri-apps-line"></i>
-                        Features</a>
                     <a href="${pageContext.request.contextPath}/about.jsp"
                         style="color:#00c6ff; border-color: rgba(0,198,255,0.3); background: rgba(0,198,255,0.1);"><i
                             class="ri-information-line"></i> About</a>
@@ -590,7 +543,6 @@
                 <div class="idx-footer-links">
                     <div>
                         <h4>Product</h4>
-                        <a href="${pageContext.request.contextPath}/index.jsp#features">Features</a>
                         <a href="#">Pricing</a>
                         <a href="#">Security</a>
                     </div>
@@ -614,78 +566,15 @@
 
         <script src="${pageContext.request.contextPath}/js/style.js"></script>
 
-        <!-- Particle Network Animation -->
+        <!-- Particle Network Animation (Same as Index) -->
         <script>
             (function () {
-                const canvas = document.getElementById('abt-particles');
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                let w, h, particles;
-                const PARTICLE_COUNT = 60;
-                const MAX_DIST = 120;
-
-                function resize() {
-                    w = canvas.width = window.innerWidth;
-                    h = canvas.height = window.innerHeight;
-                }
-
-                function createParticles() {
-                    particles = [];
-                    for (let i = 0; i < PARTICLE_COUNT; i++) {
-                        particles.push({
-                            x: Math.random() * w,
-                            y: Math.random() * h,
-                            vx: (Math.random() - 0.5) * 0.5,
-                            vy: (Math.random() - 0.5) * 0.5,
-                            r: Math.random() * 2 + 1
-                        });
-                    }
-                }
-
-                function draw() {
-                    ctx.clearRect(0, 0, w, h);
-
-                    for (let i = 0; i < particles.length; i++) {
-                        for (let j = i + 1; j < particles.length; j++) {
-                            const dx = particles[i].x - particles[j].x;
-                            const dy = particles[i].y - particles[j].y;
-                            const dist = Math.sqrt(dx * dx + dy * dy);
-                            if (dist < MAX_DIST) {
-                                const alpha = (1 - dist / MAX_DIST) * 0.2;
-                                ctx.strokeStyle = 'rgba(123,47,247,' + alpha + ')';
-                                ctx.lineWidth = 0.7;
-                                ctx.beginPath();
-                                ctx.moveTo(particles[i].x, particles[i].y);
-                                ctx.lineTo(particles[j].x, particles[j].y);
-                                ctx.stroke();
-                            }
-                        }
-                    }
-
-                    for (const p of particles) {
-                        ctx.beginPath();
-                        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                        ctx.fillStyle = 'rgba(123,47,247,0.4)';
-                        ctx.fill();
-
-                        p.x += p.vx;
-                        p.y += p.vy;
-
-                        if (p.x < 0 || p.x > w) p.vx *= -1;
-                        if (p.y < 0 || p.y > h) p.vy *= -1;
-                    }
-
-                    requestAnimationFrame(draw);
-                }
-
-                window.addEventListener('resize', function () {
-                    resize();
-                    createParticles();
-                });
-
-                resize();
-                createParticles();
-                draw();
+                var c = document.getElementById('idx-particles'); if (!c) return;
+                var ctx = c.getContext('2d'), w, h, pts = [], N = 60, D = 120;
+                function resize() { w = c.width = innerWidth; h = c.height = innerHeight; }
+                function init() { pts = []; for (var i = 0; i < N; i++) pts.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, r: Math.random() * 2 + 1 }); }
+                function draw() { ctx.clearRect(0, 0, w, h); for (var i = 0; i < pts.length; i++) for (var j = i + 1; j < pts.length; j++) { var dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.sqrt(dx * dx + dy * dy); if (d < D) { ctx.strokeStyle = 'rgba(0,198,255,' + (1 - d / D) * 0.2 + ')'; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke(); } } for (var p of pts) { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0,198,255,0.45)'; ctx.fill(); p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > w) p.vx *= -1; if (p.y < 0 || p.y > h) p.vy *= -1; } requestAnimationFrame(draw); }
+                addEventListener('resize', function () { resize(); init(); }); resize(); init(); draw();
             })();
         </script>
 
