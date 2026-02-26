@@ -365,6 +365,147 @@
                     }
                 }
 
+                /* ---- PROFILE BAR ---- */
+                .profile-bar {
+                    background: linear-gradient(135deg, #0a1628, #0f2027, #162a3a);
+                    backdrop-filter: blur(20px);
+                    border-radius: 20px;
+                    padding: 24px 32px;
+                    margin-bottom: 24px;
+                    border: 1px solid rgba(0, 198, 255, 0.18);
+                    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 198, 255, 0.06);
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    animation: fadeIn 0.8s ease;
+                }
+
+                .profile-bar-icon {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 16px;
+                    background: rgba(0, 198, 255, 0.12);
+                    color: #00c6ff;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 30px;
+                    flex-shrink: 0;
+                }
+
+                .profile-bar-details h2 {
+                    margin: 0;
+                    color: white;
+                    font-size: 24px;
+                    font-weight: 700;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                .wave-icon {
+                    display: inline-block;
+                    font-style: normal;
+                    animation: waveHand 1.8s ease-in-out infinite;
+                    transform-origin: 70% 70%;
+                    font-size: 26px;
+                }
+
+                @keyframes waveHand {
+
+                    0%,
+                    100% {
+                        transform: rotate(0deg);
+                    }
+
+                    15% {
+                        transform: rotate(14deg);
+                    }
+
+                    30% {
+                        transform: rotate(-8deg);
+                    }
+
+                    45% {
+                        transform: rotate(14deg);
+                    }
+
+                    60% {
+                        transform: rotate(-4deg);
+                    }
+
+                    75% {
+                        transform: rotate(10deg);
+                    }
+                }
+
+                .profile-bar-details p {
+                    margin: 4px 0 0;
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 15px;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+
+                .profile-bar-details p span {
+                    color: #00c6ff;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                }
+
+                /* ---- FLOATING MONEY BANNER ---- */
+                .money-float-banner {
+                    position: fixed;
+                    bottom: 28px;
+                    right: 30px;
+                    z-index: 10;
+                    display: flex;
+                    gap: 10px;
+                    pointer-events: none;
+                }
+
+                .money-float-note {
+                    width: 90px;
+                    height: 42px;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 13px;
+                    color: white;
+                    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+                    opacity: 0.88;
+                }
+
+                .mfn-1 {
+                    background: linear-gradient(135deg, #00c6ff, #0072ff);
+                    animation: mfnBob 3s ease-in-out infinite;
+                }
+
+                .mfn-2 {
+                    background: linear-gradient(135deg, #00ffa3, #00c853);
+                    animation: mfnBob 3.5s 0.4s ease-in-out infinite;
+                }
+
+                .mfn-3 {
+                    background: linear-gradient(135deg, #7b2ff7, #b57aff);
+                    animation: mfnBob 4s 0.8s ease-in-out infinite;
+                }
+
+                @keyframes mfnBob {
+
+                    0%,
+                    100% {
+                        transform: translateY(0) rotate(-1deg);
+                    }
+
+                    50% {
+                        transform: translateY(-10px) rotate(1.5deg);
+                    }
+                }
+
                 /* ---- CARD GRID ---- */
                 .card-grid {
                     display: grid;
@@ -374,7 +515,7 @@
                 }
 
                 .dash-card {
-                    background: rgba(255, 255, 255, 0.04);
+                    background: linear-gradient(135deg, #0a1628, #0f2027, #162a3a);
                     backdrop-filter: blur(20px);
                     border-radius: 20px;
                     padding: 28px;
@@ -383,7 +524,8 @@
                     flex-direction: column;
                     justify-content: space-between;
                     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                    border: 1px solid rgba(255, 255, 255, 0.06);
+                    border: 1px solid rgba(0, 198, 255, 0.18);
+                    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 198, 255, 0.06);
                     position: relative;
                     overflow: hidden;
                     animation: cardFloat 6s ease-in-out infinite;
@@ -569,10 +711,11 @@
 
                 /* ---- TRANSACTIONS SECTION ---- */
                 .dash-txn-section {
-                    background: rgba(255, 255, 255, 0.04);
+                    background: linear-gradient(135deg, #0a1628, #0f2027, #162a3a);
                     backdrop-filter: blur(20px);
                     border-radius: 20px;
-                    border: 1px solid rgba(255, 255, 255, 0.06);
+                    border: 1px solid rgba(0, 198, 255, 0.18);
+                    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 198, 255, 0.06);
                     overflow: hidden;
                 }
 
@@ -654,13 +797,17 @@
             <div class="money-float mf7">$</div>
             <div class="money-float mf8">€</div>
 
+
             <!-- Background Layers -->
             <canvas id="home-particles"></canvas>
             <div class="home-orb home-orb-1"></div>
             <div class="home-orb home-orb-2"></div>
             <div class="home-orb home-orb-3"></div>
 
+
+
             <!-- Background Video -->
+
             <video autoplay muted loop playsinline class="bg-video">
                 <source src="${pageContext.request.contextPath}/assets/bg-video.mp4" type="video/mp4">
             </video>
@@ -704,12 +851,15 @@
 
                     <!-- DASHBOARD CARDS -->
                     <div class="dash-content" style="padding:0;">
+
+
                         <div class="card-grid">
 
                             <%-- 1. Balance Card --%>
                                 <div class="dash-card dash-card-balance">
                                     <div class="dash-card-header">
-                                        <div class="dash-card-icon icon-balance"><i class="ri-wallet-3-line"></i></div>
+                                        <div class="dash-card-icon icon-balance"><i class="ri-wallet-3-line"></i>
+                                        </div>
                                         <h3>Total Balance</h3>
                                     </div>
                                     <div class="balance-value">₹ <span
@@ -796,9 +946,11 @@
                                                         <c:choose>
                                                             <c:when test="${tx.txType() == 'TRANSFER'}">
                                                                 <span class="ref-text">
-                                                                    ${tx.senderAccount() == sessionScope.accountNumber ?
+                                                                    ${tx.senderAccount() ==
+                                                                    sessionScope.accountNumber ?
                                                                     'To' : 'From'}
-                                                                    ${tx.senderAccount() == sessionScope.accountNumber ?
+                                                                    ${tx.senderAccount() ==
+                                                                    sessionScope.accountNumber ?
                                                                     tx.receiverAccount() : tx.senderAccount()}
                                                                 </span>
                                                             </c:when>

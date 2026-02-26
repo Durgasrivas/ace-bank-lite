@@ -18,10 +18,27 @@
 
     <body class="index-page">
 
-        <!-- ====== Floating Decorative Orbs ====== -->
+        <!-- Particle Canvas -->
+        <canvas id="idx-particles"></canvas>
+
+        <!-- Floating Orbs -->
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
+
+        <!-- Floating Currency Symbols -->
+        <div
+            style="position:fixed;font-size:18px;font-weight:800;opacity:0.15;z-index:0;top:10%;left:8%;color:#00c6ff;animation:fc 6s ease-in-out infinite;">
+            ₹</div>
+        <div
+            style="position:fixed;font-size:18px;font-weight:800;opacity:0.15;z-index:0;top:20%;right:12%;color:#00ffa3;animation:fc 7s 1s ease-in-out infinite;">
+            $</div>
+        <div
+            style="position:fixed;font-size:18px;font-weight:800;opacity:0.15;z-index:0;bottom:25%;left:15%;color:#7b2ff7;animation:fc 8s 2s ease-in-out infinite;">
+            €</div>
+        <div
+            style="position:fixed;font-size:18px;font-weight:800;opacity:0.15;z-index:0;bottom:15%;right:8%;color:#ffb347;animation:fc 5s 0.5s ease-in-out infinite;">
+            £</div>
 
         <!-- ====== HEADER / NAVBAR ====== -->
         <header class="idx-header">
@@ -30,7 +47,6 @@
                     Ace<span>Bank</span>
                 </a>
                 <nav class="idx-nav">
-                    <a href="#features"><i class="ri-apps-line"></i> Features</a>
                     <a href="${pageContext.request.contextPath}/about.jsp"><i class="ri-information-line"></i> About</a>
                     <a href="${pageContext.request.contextPath}/login.jsp" class="idx-nav-link"><i
                             class="ri-login-box-line"></i> Login</a>
@@ -158,6 +174,16 @@
         </footer>
 
         <script src="${pageContext.request.contextPath}/js/style.js"></script>
+        <script>
+            (function () {
+                var c = document.getElementById('idx-particles'); if (!c) return;
+                var ctx = c.getContext('2d'), w, h, pts = [], N = 60, D = 120;
+                function resize() { w = c.width = innerWidth; h = c.height = innerHeight; }
+                function init() { pts = []; for (var i = 0; i < N; i++) pts.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, r: Math.random() * 2 + 1 }); }
+                function draw() { ctx.clearRect(0, 0, w, h); for (var i = 0; i < pts.length; i++) for (var j = i + 1; j < pts.length; j++) { var dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.sqrt(dx * dx + dy * dy); if (d < D) { ctx.strokeStyle = 'rgba(0,198,255,' + (1 - d / D) * 0.2 + ')'; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke(); } } for (var p of pts) { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0,198,255,0.45)'; ctx.fill(); p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > w) p.vx *= -1; if (p.y < 0 || p.y > h) p.vy *= -1; } requestAnimationFrame(draw); }
+                addEventListener('resize', function () { resize(); init(); }); resize(); init(); draw();
+            })();
+        </script>
 
     </body>
 

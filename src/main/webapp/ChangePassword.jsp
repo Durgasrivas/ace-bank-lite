@@ -192,18 +192,18 @@
                 content: '';
                 position: absolute;
                 inset: -6px;
-                border: 1px dashed rgba(0, 198, 255, 0.4);
+                border: 2px solid rgba(0, 198, 255, 0.6);
                 border-radius: 25px;
-                animation: lockSpin 15s linear infinite;
+                animation: shieldPulse 2s ease-in-out infinite alternate;
             }
 
             .reset-padlock i {
                 font-size: 60px;
-                background: linear-gradient(135deg, #00c6ff, #7b2ff7);
+                background: linear-gradient(135deg, #00c6ff, #00ffa3);
                 -webkit-background-clip: text;
                 background-clip: text;
                 -webkit-text-fill-color: transparent;
-                filter: drop-shadow(0 0 10px rgba(123, 47, 247, 0.5));
+                filter: drop-shadow(0 0 10px rgba(0, 255, 163, 0.5));
             }
 
             @keyframes lockFloat {
@@ -218,9 +218,15 @@
                 }
             }
 
-            @keyframes lockSpin {
+            @keyframes shieldPulse {
+                from {
+                    transform: scale(0.95);
+                    opacity: 0.5;
+                }
+
                 to {
-                    transform: rotate(360deg);
+                    transform: scale(1.05);
+                    opacity: 1;
                 }
             }
 
@@ -291,7 +297,7 @@
             <!-- LEFT: Lock Animation Visual -->
             <div class="reset-side-visual">
                 <div class="reset-padlock">
-                    <i class="ri-lock-password-fill"></i>
+                    <i class="ri-shield-keyhole-fill"></i>
                 </div>
                 <h3 style="color:white; font-size:20px; font-weight:700; text-align:center; margin:0;">
                     Secure <span style="color:#00c6ff;">Update</span>

@@ -615,10 +615,33 @@ header {
 /* ================================================= */
 
 .index-page {
-    background: var(--gradient-bg);
+    background: linear-gradient(135deg, #060d16, #0a1628, #0f2027) !important;
+    background-size: 400% 400% !important;
+    animation: idxGrad 12s ease infinite !important;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
+}
+
+@keyframes idxGrad {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#idx-particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* ---- Floating Orbs ---- */
