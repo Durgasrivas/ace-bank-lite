@@ -48,6 +48,7 @@
                 </a>
                 <nav class="idx-nav">
                     <a href="${pageContext.request.contextPath}/about.jsp"><i class="ri-information-line"></i> About</a>
+                    <a href="${pageContext.request.contextPath}/contact.jsp" class="idx-nav-link"><i class="ri-customer-service-2-line"></i> Contact</a>
                     <a href="${pageContext.request.contextPath}/login.jsp" class="idx-nav-link"><i
                             class="ri-login-box-line"></i> Login</a>
                     <a href="${pageContext.request.contextPath}/sign-up.jsp" class="idx-btn-signup"><i

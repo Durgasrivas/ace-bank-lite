@@ -350,6 +350,7 @@
                     <a href="${pageContext.request.contextPath}/about.jsp"
                         style="color:#00c6ff; border-color: rgba(0,198,255,0.3); background: rgba(0,198,255,0.1);"><i
                             class="ri-information-line"></i> About</a>
+                    <a href="${pageContext.request.contextPath}/contact.jsp" class="idx-nav-link"><i class="ri-customer-service-2-line"></i> Contact</a>
                     <a href="${pageContext.request.contextPath}/login.jsp" class="idx-nav-link"><i
                             class="ri-login-box-line"></i> Login</a>
                     <a href="${pageContext.request.contextPath}/sign-up.jsp" class="idx-btn-signup"><i
