@@ -21,6 +21,50 @@ public class MailUtil {
         });
     }
 
+    /** Sends a rich HTML email asynchronously — fire and forget. */
+    public static void sendHtmlMailAsync(String recipient, String subject, String htmlBody) {
+        CompletableFuture.runAsync(() -> {
+            try {
+                sendHtmlMail(recipient, subject, htmlBody);
+            } catch (Exception e) {
+                log.warning("Background HTML email failed: " + e.getMessage());
+            }
+        });
+    }
+
+    /** Sends a rich HTML email synchronously. Returns true on success. */
+    public static boolean sendHtmlMail(final String recipient, String subject, String htmlBody) {
+        log.info("Attempting to send HTML email to: " + recipient);
+        try {
+            Session session = Session.getInstance(getSmtpConfig(), new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(
+                            ConfigLoader.getProperty(ConfigKeys.MAIL_ADDR),
+                            ConfigLoader.getProperty(ConfigKeys.MAIL_PWD)
+                    );
+                }
+            });
+
+            Message message = new MimeMessage(session);
+            String fromAddr = ConfigLoader.getProperty(ConfigKeys.MAIL_ADDR);
+
+            message.setFrom(new InternetAddress(fromAddr, "AceBank"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+            message.setSubject(subject);
+            // Set HTML content
+            message.setContent(htmlBody, "text/html; charset=UTF-8");
+
+            Transport.send(message);
+            log.info("HTML email sent successfully to " + recipient);
+            return true;
+
+        } catch (Exception e) {
+            log.severe("Failed to send HTML email: " + e.getMessage());
+            return false;
+        }
+    }
+
     public static boolean sendMail(final String recipient, String subject, String body) {
         log.info("Attempting to send email to: " + recipient);
 
